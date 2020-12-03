@@ -4,8 +4,7 @@
 
     export let playId: number = 6;
 </script>
-
-Play:
+    
 <select bind:value={playId}>
     {#each plays as play}
         <option value={play.id}>{play.name}</option>

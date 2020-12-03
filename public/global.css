@@ -8,9 +8,11 @@ body {
 	background-color: rgb(248, 244, 244);
 	color: #333;
 	margin: 0;
-	padding: 8px;
+	padding: 0;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 a {
@@ -49,6 +51,10 @@ button {
 	color: #333;
 	background-color: #f4f4f4;
 	outline: none;
+}
+
+button.my-mdc-button-no-collapse {
+	min-height: 36px;
 }
 
 button:disabled {
