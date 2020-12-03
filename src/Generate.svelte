@@ -88,8 +88,8 @@
     </Actions>
   </Snackbar>
 </div>
-<Button
+<!-- <Button
   variant="raised"
   on:click={() => modelHistory.add(new ModelHistory(prompt, output))}>
   Add Text
-</Button>
+</Button> -->
