@@ -9,7 +9,15 @@
   import { serverAddr } from "./consts";
   import type { ModelOut } from "./consts";
 
-  let prompt: string = "";
+  let prompt: string = `Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua. 
+Ut enim ad minim veniam, quis nostrud 
+exercitation ullamco
+laboris nisi ut
+aliquip ex
+ea commodo
+consequat.`;
   let output: string = "";
   let loading = false;
   let errorMsg: string = "";
@@ -82,7 +90,10 @@
   <Button variant="unelevated" on:click={getResponse} disabled={loading}>
     <Label>Generate!</Label>
   </Button>
-  <Button variant="unelevated" disabled={loading}>
+  <Button
+    variant="unelevated"
+    disabled={loading}
+    on:click={() => modelHistory.add(new ModelHistory(prompt, output))}>
     <Label>Example</Label>
   </Button>
   <LinearProgress indeterminate closed={!loading} />

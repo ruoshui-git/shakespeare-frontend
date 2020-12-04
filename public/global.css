@@ -21,17 +21,17 @@ main {
 }
 
 a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+	color: rgb(15, 15, 16);
+	/* text-decoration: none; */
 }
 
 a:hover {
 	text-decoration: underline;
 }
 
-a:visited {
+/* a:visited {
 	color: rgb(0,80,160);
-}
+} */
 
 label {
 	display: block;
@@ -51,16 +51,13 @@ input, button, select, textarea {
 input:disabled {
 	color: #ccc;
 }
-
+/* 
 button {
 	color: #333;
 	background-color: #f4f4f4;
 	outline: none;
 }
 
-button.my-mdc-button-no-collapse {
-	min-height: 36px;
-}
 
 button:disabled {
 	color: #999;
@@ -72,18 +69,22 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
-}
+} */
 
 pre {
 	font-family: Garamond, Georgia, 'Times New Roman', Times, serif;
-
+	
 	font-size: 1rem;
 	text-align: left;
-
+	
 	border: 1px solid rgb(197, 197, 197);
 	border-radius: 2px;
 	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.01);
-
+	
 	white-space: pre-wrap;
 	word-break: keep-all;
+}
+
+button.my-mdc-button-no-collapse {
+	min-height: 36px;
 }
