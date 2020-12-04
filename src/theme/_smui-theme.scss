@@ -1,7 +1,6 @@
 // $mdc-linear-progress-baseline-buffer-color: ;
 //
 
-
 // MDC Theme
 //
 
@@ -12,8 +11,7 @@ $mdc-theme-primary: rgb(255, 185, 33);
 $mdc-theme-secondary: #f47e17;
 // Other Svelte color: #40b3ff
 
-$mdc-theme-background: #fff;
+$mdc-theme-background: rgb(248, 244, 244);
 $mdc-theme-surface: #fff;
 
 $mdc-theme-error: $material-color-red-900;
-
