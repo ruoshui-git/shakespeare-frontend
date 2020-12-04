@@ -8,26 +8,24 @@
     import axios, { AxiosResponse } from "axios";
     import { serverAddr } from "../consts";
     import type { ModelOut } from "../consts";
+    import * as examples from "../assets/examples";
 
     export let advanced: boolean;
 
-    let prompt: string = `Lorem ipsum dolor sit amet, consectetur 
-adipiscing elit, sed do eiusmod tempor 
-incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud 
-exercitation ullamco
-laboris nisi ut
-aliquip ex
-ea commodo
-consequat.`;
     let loading = false;
+    let loadingMsg = "";
     let errorMsg: string = "";
 
-    let ErrorSnackbar: Snackbar;
+    let form: HTMLFormElement;
+    let errorSnackbar: Snackbar;
 
-    let playId = 6;
+    const regProps = {
+        playId: 6,
+        prompt: "To be or not to be--that is the",
+    };
 
     const advProps = {
+        prompt: "6|There is nothing either good or bad but",
         top_k: 40,
         top_p: 0.95,
         temperature: 1.2,
@@ -35,53 +33,65 @@ consequat.`;
         min_length: 100,
     };
 
-    let form: HTMLFormElement;
+    const fillExample = () => {
+        if (advanced) {
+            advProps.prompt = examples.getAdv();
+        } else {
+            [regProps.prompt, regProps.playId] = examples.getReg();
+        }
+    };
 
-    const getResponse = () => {
+    const getResponse = async () => {
         if (!form.reportValidity()) return;
         loading = true;
-        let axiosReq: Promise<AxiosResponse<ModelOut>>;
-        if (advanced) {
-            axiosReq = axios.get<any, AxiosResponse<ModelOut>>(
-                `${serverAddr}/generate/raw`,
-                {
-                    params: { ...advProps, prompt },
-                }
-            );
-        } else {
-            axiosReq = axios.get<any, AxiosResponse<ModelOut>>(
-                `${serverAddr}/generate`,
-                {
-                    params: {
-                        prompt,
-                        play_id: playId,
-                    },
-                }
-            );
-        }
+        loadingMsg = "Checking server status...";
 
-        axiosReq
-            .then(({ data }) => {
-                modelHistory.add(new ModelHistory(data.prompt, data.output));
-            })
-            .catch((err) => {
-                if (err) {
-                    if (navigator.onLine) {
-                        errorMsg =
-                            "😞 Failed to connect to server. Server is probably down at this point.";
-                    } else {
-                        errorMsg =
-                            "Browser is offline. Check your 🌐 internet connection.";
+        // Verify server is up, before asking for inference.
+        try {
+            const { data } = await axios.get(serverAddr);
+            if (data.message !== "Up and and running!") {
+                throw new Error("Bad response"); // deal with error all in one place
+            }
+            loadingMsg = "Server is up. Generating text...";
+
+            let output: AxiosResponse<ModelOut>;
+
+            if (advanced) {
+                output = await axios.get<any, AxiosResponse<ModelOut>>(
+                    `${serverAddr}/generate/raw`,
+                    {
+                        params: advProps,
                     }
+                );
+            } else {
+                output = await axios.get<any, AxiosResponse<ModelOut>>(
+                    `${serverAddr}/generate`,
+                    {
+                        params: regProps,
+                    }
+                );
+            }
+            modelHistory.add(
+                new ModelHistory(output.data.prompt, output.data.output)
+            );
+        } catch (err) {
+            if (err.message === "Bad response") {
+                errorMsg = `❌ Server didn't send the correct response. Server is probably down right now.`;
+            } else if (navigator.onLine) {
+                if (err.message === "Network Error") {
+                    errorMsg = `😞 Failed to connect to server. Server is probably down right now.`;
                 } else {
-                    errorMsg = `Could not fetch data. Unknown Error.`;
+                    errorMsg = `😞 Failed to connect to server. ${err}`;
                 }
-                console.trace(err);
-                ErrorSnackbar.open();
-            })
-            .finally(() => {
-                loading = false;
-            });
+            } else {
+                errorMsg =
+                    "Browser is offline. Check your 🌐 internet connection.";
+            }
+            errorSnackbar.open();
+        } finally {
+            loadingMsg = "";
+            loading = false;
+        }
     };
 </script>
 
@@ -116,7 +126,7 @@ consequat.`;
     {#if advanced}
         <div class="tuners">
             <label for="prompt-input">Prompt:</label>
-            <textarea bind:value={prompt} id="prompt-input" />
+            <textarea bind:value={advProps.prompt} id="prompt-input" />
             <label>top-k:
                 <input
                     type="number"
@@ -139,7 +149,7 @@ consequat.`;
         </div>
     {:else}
         <label for="generate-play-select">Select a play:</label>
-        <PlaySelect id="generate-play-select" bind:playId />
+        <PlaySelect id="generate-play-select" bind:playId={regProps.playId} />
 
         <br /><br />
 
@@ -148,23 +158,25 @@ consequat.`;
         <textarea
             id="prompt-input"
             rows="9"
-            bind:value={prompt}
+            bind:value={regProps.prompt}
             placeholder="Give me some shakespeare!" />
     {/if}
     <Button
         variant="unelevated"
-        on:click={() => getResponse()}
+        on:click={async () => await getResponse()}
         disabled={loading}>
         <Label>Generate!</Label>
     </Button>
-    <Button
-        variant="unelevated"
-        disabled={loading}
-        on:click={() => modelHistory.add(new ModelHistory(prompt, ''))}>
+    <Button variant="unelevated" disabled={loading} on:click={fillExample}>
         <Label>Example</Label>
     </Button>
     <LinearProgress indeterminate closed={!loading} />
-    <Snackbar bind:this={ErrorSnackbar}>
+
+    {#if loading}
+        <p>{loadingMsg}</p>
+    {/if}
+
+    <Snackbar bind:this={errorSnackbar}>
         <Label>{errorMsg}</Label>
         <Actions>
             <IconButton class="material-icons" title="Dismiss">
