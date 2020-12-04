@@ -12,7 +12,6 @@
   let prompt: string = "";
   let output: string = "";
   let loading = false;
-  let error = false;
   let errorMsg: string = "";
 
   let SnackComponent: Snackbar;
@@ -21,7 +20,6 @@
 
   const getResponse = () => {
     loading = true;
-    error = false;
     axios
       .get<any, AxiosResponse<ModelOut>>(`${serverAddr}/generate`, {
         params: {
@@ -32,14 +30,19 @@
       .then(({ data }) => {
         modelHistory.add(new ModelHistory(data.prompt, data.output));
       })
-      .catch((e) => {
-        SnackComponent.open();
-        if (e) {
-          errorMsg = `Could not fetch data. ${e}.`;
-          console.log(e);
+      .catch((err) => {
+        if (err) {
+          if (navigator.onLine) {
+            errorMsg =
+              "😞 Failed to connect to server. Server is probably down at this point.";
+          } else {
+            errorMsg = "Browser is offline. Check your 🌐 internet connection.";
+          }
         } else {
           errorMsg = `Could not fetch data. Unknown Error.`;
         }
+        console.trace(err);
+        SnackComponent.open();
       })
       .finally(() => {
         loading = false;
@@ -67,21 +70,23 @@
 </style>
 
 <div>
-  First, select a play to generate from:
-  <PlaySelect bind:playId />
+  <label for="generate-play-select">Select a play:</label>
+  <PlaySelect id="generate-play-select" bind:playId />
 
-  <br />
-  Optionally, give it some lines to start off from:
-  <textarea bind:value={prompt} />
+  <label for="prompt-input">Optionally, give it some lines to start off:</label>
+  <textarea id="prompt-input" rows="9" bind:value={prompt} />
   <!-- <OutputBox bind:loading promptEditable bind:prompt bind:response /> -->
+  <!-- {#if loading}
+  <p>Please be patient, text generation takes a long time.</p>
+  {/if} -->
   <Button variant="unelevated" on:click={getResponse} disabled={loading}>
     <Label>Generate!</Label>
   </Button>
+  <Button variant="unelevated" disabled={loading}>
+    <Label>Example</Label>
+  </Button>
   <LinearProgress indeterminate closed={!loading} />
-  {#if loading}
-    <p>Please be patient, text generation takes a long time.</p>
-  {/if}
-  <Snackbar bind:this={SnackComponent} on:close={() => (error = false)}>
+  <Snackbar bind:this={SnackComponent}>
     <Label>{errorMsg}</Label>
     <Actions>
       <IconButton class="material-icons" title="Dismiss">close</IconButton>
