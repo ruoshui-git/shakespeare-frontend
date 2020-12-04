@@ -31,7 +31,7 @@ a:hover {
 } */
 
 label {
-    display: block;
+    display: inline-block;
 }
 
 input,
@@ -90,6 +90,6 @@ button.my-mdc-button-no-collapse {
 }
 
 label {
-	font-family: Georgia, "Times New Roman", Times, serif;
-	margin-bottom: 3px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin-bottom: 3px;
 }
