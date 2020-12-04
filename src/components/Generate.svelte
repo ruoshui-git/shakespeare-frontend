@@ -27,15 +27,40 @@ consequat.`;
 
     let playId = 6;
 
+    const advProps = {
+        top_k: 40,
+        top_p: 0.95,
+        temperature: 1.2,
+        max_length: 256,
+        min_length: 100,
+    };
+
+    let form: HTMLFormElement;
+
     const getResponse = () => {
+        if (!form.reportValidity()) return;
         loading = true;
-        axios
-            .get<any, AxiosResponse<ModelOut>>(`${serverAddr}/generate`, {
-                params: {
-                    prompt,
-                    play_id: playId,
-                },
-            })
+        let axiosReq: Promise<AxiosResponse<ModelOut>>;
+        if (advanced) {
+            axiosReq = axios.get<any, AxiosResponse<ModelOut>>(
+                `${serverAddr}/generate/raw`,
+                {
+                    params: { ...advProps, prompt },
+                }
+            );
+        } else {
+            axiosReq = axios.get<any, AxiosResponse<ModelOut>>(
+                `${serverAddr}/generate`,
+                {
+                    params: {
+                        prompt,
+                        play_id: playId,
+                    },
+                }
+            );
+        }
+
+        axiosReq
             .then(({ data }) => {
                 modelHistory.add(new ModelHistory(data.prompt, data.output));
             })
@@ -61,35 +86,75 @@ consequat.`;
 </script>
 
 <style>
-    div {
+    form {
         margin: 0 auto;
-        margin-left: auto;
-        margin-right: auto;
         padding: 0 1rem;
         max-width: 30rem;
     }
 
     textarea {
         font-family: Garamond, Georgia, "Times New Roman", Times, serif;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: bold;
         width: 100%;
         min-height: 10rem;
         resize: vertical;
     }
+
+    input {
+        width: 70px;
+        display: inline-block;
+    }
+    div.tuners {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
 </style>
 
-<div>
+<form bind:this={form}>
     {#if advanced}
-        <textarea bind:value={prompt} />
+        <div class="tuners">
+            <label for="prompt-input">Prompt:</label>
+            <textarea bind:value={prompt} id="prompt-input" />
+            <label>top-k:
+                <input
+                    type="number"
+                    min="0"
+                    bind:value={advProps.top_k} /></label>
+            <label>top-p:
+                <input
+                    type="number"
+                    step="0.01"
+                    bind:value={advProps.top_p} /></label>
+            <label>temperature:
+                <input
+                    type="number"
+                    step="0.01"
+                    bind:value={advProps.temperature} /></label>
+            <label>Maximum output length:
+                <input type="number" bind:value={advProps.max_length} /></label>
+            <label>Minimum output length:
+                <input type="number" bind:value={advProps.min_length} /></label>
+        </div>
     {:else}
         <label for="generate-play-select">Select a play:</label>
         <PlaySelect id="generate-play-select" bind:playId />
 
-        <label for="prompt-input">Optionally, give it some lines to start off:</label>
-        <textarea id="prompt-input" rows="9" bind:value={prompt} />
+        <br /><br />
+
+        <label for="prompt-input">Optionally, give it some lines to start off
+            with:</label>
+        <textarea
+            id="prompt-input"
+            rows="9"
+            bind:value={prompt}
+            placeholder="Give me some shakespeare!" />
     {/if}
-    <Button variant="unelevated" on:click={getResponse} disabled={loading}>
+    <Button
+        variant="unelevated"
+        on:click={() => getResponse()}
+        disabled={loading}>
         <Label>Generate!</Label>
     </Button>
     <Button
@@ -107,4 +172,4 @@ consequat.`;
             </IconButton>
         </Actions>
     </Snackbar>
-</div>
+</form>
