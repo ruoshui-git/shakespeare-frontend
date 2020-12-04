@@ -74,7 +74,7 @@
       <li>
         <a href="/generate" use:link use:active={/^\/(generate)?$/}>ABC</a>
       </li>
-      <li><a href="/generate/advanced" use:link use:active> Advanced</a></li>
+      <li><a href="/generate/advanced" use:link use:active>Advanced</a></li>
       <li><a href="/about" use:link use:active>About</a></li>
     </ul>
   </nav>

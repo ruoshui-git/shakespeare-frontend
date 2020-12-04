@@ -1,23 +1,23 @@
 <script lang="ts">
-    import Router, { wrap } from "svelte-spa-router/wrap";
+    import { wrap } from "svelte-spa-router/wrap";
+    import Router from "svelte-spa-router";
     import type { RouteDefinition } from "svelte-spa-router";
 
     import HistoryList from "./components/HistoryList.svelte";
     import Generate from "./components/Generate.svelte";
+    import NotFound from "./components/NotFound.svelte";
 
+    const prefix = "/generate";
     const routes: RouteDefinition = {
-        "/generate": wrap({
-            component: Generate,
-            props: { advanced: false },
-        }),
         "/": wrap({
             component: Generate,
             props: { advanced: false },
         }),
-        "/generate/advanced": wrap({
+        "/advanced": wrap({
             component: Generate,
             props: { advanced: true },
         }),
+        "*": NotFound,
     };
 </script>
 
@@ -50,7 +50,7 @@
 </style>
 
 <main>
-    <Generate />
+    <Router {routes} {prefix} />
 </main>
 <aside>
     <HistoryList />
