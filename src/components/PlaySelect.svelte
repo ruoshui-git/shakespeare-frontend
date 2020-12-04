@@ -1,6 +1,6 @@
 <!-- Expose id of a selected play -->
 <script lang="ts">
-  import plays from "../play_data";
+  import plays from "../assets/play_data";
 
   export let playId: number = 6;
   let elementId: string | undefined;
