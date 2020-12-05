@@ -1,3 +1,17 @@
+/* * {
+    scrollbar-width: 10px;
+}
+*::-webkit-scrollbar {
+    width: 10px;
+}
+*::-webkit-scrollbar-track {
+    background: rgb(255, 250, 241);
+}
+*::-webkit-scrollbar-thumb {
+    background-color: rgb(213, 213, 213);
+    border-radius: 0px;
+} */
+
 html,
 body {
     position: relative;
