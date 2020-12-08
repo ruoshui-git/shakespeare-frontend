@@ -1,7 +1,7 @@
-import Index from './Index.svelte';
+import Routes from "./Routes.svelte";
 
-const app = new Index({
-	target: document.body,
+const app = new Routes({
+    target: document.body,
 });
 
 export default app;

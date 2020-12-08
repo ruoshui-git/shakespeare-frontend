@@ -1,17 +1,19 @@
 <script lang="ts">
     import Header from "./components/Header.svelte";
 
-    import About from "./About.svelte";
+    import About from "./pages/About.svelte";
     import App from "./App.svelte";
     import NotFound from "./components/NotFound.svelte";
 
     import Router from "svelte-spa-router";
     import type { RouteDefinition } from "svelte-spa-router";
+    import Home from "./pages/Home.svelte";
 
     const routes: RouteDefinition = {
         "/about": About,
         "/generate": App,
         "/generate/*": App,
+        "/": Home,
         "*": NotFound,
     };
 
@@ -28,12 +30,6 @@
         align-items: stretch;
 
         flex: 1 1 auto;
-    }
-
-    @media (max-width: 900px) {
-        div.container {
-            align-items: center;
-        }
     }
 </style>
 

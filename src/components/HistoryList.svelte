@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { modelHistory } from "../modelHistory";
+    import { modelHistory } from "./modelHistory";
     import OutputBox from "./OutputBox.svelte";
     import Button from "@smui/button";
 </script>
