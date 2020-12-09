@@ -71,12 +71,8 @@
 <header>
     <nav>
         <ul>
-            <li>
-                <a
-                    href="/generate"
-                    use:link
-                    use:active={/^\/(generate)?$/}>ABC</a>
-            </li>
+            <li><a href="/" use:link use:active>Home</a></li>
+            <li><a href="/generate" use:link use:active>ABC</a></li>
             <li>
                 <a href="/generate/advanced" use:link use:active>Advanced</a>
             </li>
