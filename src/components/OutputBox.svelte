@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { slide, fly } from "svelte/transition";
+    import { fly } from "svelte/transition";
     import Skeleton from "./Skeleton.svelte";
-    import Ripple from "@smui/ripple";
 
     export let prompt = "";
     export let output = "";
@@ -10,10 +9,6 @@
     export let compact = false;
 
     let promptComponent: HTMLSpanElement;
-
-    const normalizeBr = (text: string): string => {
-        return text?.replaceAll(/(\r?\n)|(\r(?!\n))/gi, "\n");
-    };
 
     const range = document.createRange();
 
@@ -79,7 +74,6 @@
         margin: 0.5rem 0;
         /* width: 100%; */
     }
-
     /* https://stackoverflow.com/questions/26960417/when-a-span-element-contains-no-text-fill-with-placeholder-text */
     span.prompt[contenteditable="true"] {
         display: inline-block;
@@ -115,15 +109,5 @@
                     on:dragover={cancelDrag}
                     contenteditable={promptEditable}
                     bind:this={promptComponent}
-        >{prompt}</span></strong>{(output)}</pre>
+        >{prompt}</span></strong>{output}</pre>
 {/if}
-
-<!-- <pre 
-transition:slide
-class:compact
-on:click={focusPrompt}><strong>{#if promptEditable}<span
-            class="prompt"
-            contenteditable="true"
-            bind:this={promptComponent}
-            bind:textContent={prompt}
-            />{:else}<span class="prompt">{normalizeBr(prompt)}</span>{/if}</strong>{normalizeBr(response)}</pre> -->

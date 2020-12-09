@@ -1,13 +1,13 @@
 <script lang="ts">
     import PlaySelect from "./PlaySelect.svelte";
-    import ModelHistory, { modelHistory } from "../modelHistory";
+    import ModelHistory, { modelHistory } from "./modelHistory";
     import LinearProgress from "@smui/linear-progress";
     import Snackbar, { Actions, Label } from "@smui/snackbar";
     import Button from "@smui/button";
     import IconButton from "@smui/icon-button";
     import axios, { AxiosResponse } from "axios";
-    import { serverAddr } from "../consts";
-    import type { ModelOut } from "../consts";
+    import { SERVER_ADDR } from "../assets/consts";
+    import type { ModelOut } from "../assets/consts";
     import * as examples from "../assets/examples";
 
     export let advanced: boolean;
@@ -48,7 +48,7 @@
 
         // Verify server is up, before asking for inference.
         try {
-            const { data } = await axios.get(serverAddr);
+            const { data } = await axios.get(SERVER_ADDR);
             if (data.message !== "Up and and running!") {
                 throw new Error("Bad response"); // deal with error all in one place
             }
@@ -58,14 +58,14 @@
 
             if (advanced) {
                 output = await axios.get<any, AxiosResponse<ModelOut>>(
-                    `${serverAddr}/generate/raw`,
+                    `${SERVER_ADDR}/generate/raw`,
                     {
                         params: advProps,
                     }
                 );
             } else {
                 output = await axios.get<any, AxiosResponse<ModelOut>>(
-                    `${serverAddr}/generate`,
+                    `${SERVER_ADDR}/generate`,
                     {
                         params: regProps,
                     }
@@ -120,6 +120,11 @@
         flex-flow: row wrap;
         justify-content: space-between;
     }
+    div.controls {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
 </style>
 
 <form bind:this={form}>
@@ -161,15 +166,18 @@
             bind:value={regProps.prompt}
             placeholder="Give me some shakespeare!" />
     {/if}
-    <Button
-        variant="unelevated"
-        on:click={async () => await getResponse()}
-        disabled={loading}>
-        <Label>Generate!</Label>
-    </Button>
-    <Button variant="unelevated" disabled={loading} on:click={fillExample}>
-        <Label>Example</Label>
-    </Button>
+    <div class="controls">
+        <Button variant="unelevated" disabled={loading} on:click={fillExample}>
+            <Label>Example</Label>
+        </Button>
+        <Button
+            variant="unelevated"
+            on:click={async () => await getResponse()}
+            disabled={loading}>
+            <Label>Generate!</Label>
+        </Button>
+    </div>
+
     <LinearProgress indeterminate closed={!loading} />
 
     {#if loading}

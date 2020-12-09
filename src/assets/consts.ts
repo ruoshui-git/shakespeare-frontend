@@ -1,5 +1,5 @@
 // export const SERVER_ADDR = "http://127.0.0.1:8000";
-export const SERVER_ADDR = "https://shakespeare-backend.azurewebsites.net/";
+export const SERVER_ADDR = "https://shakespeare-backend.azurewebsites.net";
 
 export interface ModelOut {
     prompt: string;
