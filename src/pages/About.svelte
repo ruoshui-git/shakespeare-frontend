@@ -28,13 +28,17 @@
                 rel="noopener noreferrer">Back end GitHub Repo</a>
         </li>
         <li>
-            <a href="#" target="_blank" rel="noopener noreferrer">Front end
-                GitHub Repo</a>
+            <a
+                href="https://github.com/ruoshui-git/shakespeare-frontend"
+                target="_blank"
+                rel="noopener noreferrer">Front end GitHub Repo</a>
         </li>
         <li>
-            <a href="#" target="_blank" rel="noopener noreferrer">Text &
-                Formatting GitHub Repo (text source and the code that I used to
-                format them)</a>
+            <a
+                href="https://github.com/ruoshui-git/shakespeare-data"
+                target="_blank"
+                rel="noopener noreferrer">Text & Formatting GitHub Repo (text
+                source and the code that I used to format them)</a>
         </li>
     </ul>
     <br />
