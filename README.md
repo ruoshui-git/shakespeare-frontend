@@ -13,17 +13,18 @@ Links to related places:
 My original idea was to run this in the browser, maybe though rust+wasm, or with tfjs. Both methods failed. So this is what I came up with.
 
 Todos:
-[x] Add advanced mode - no prefixing and removing; able to set top-k, top-p, temperature, min & max
-[x] add examples
-[x] add even more examples
-[x] Deploy frontend
-[x] configure file hashing
 
-[x] deploy backend
+- [x] Add advanced mode - no prefixing and removing; able to set top-k, top-p, temperature, min & max
+- [x] add examples
+- [x] add even more examples
+- [x] Deploy frontend
+- [x] configure file hashing
+- [x] deploy backend
 
 nice to have:
 
 -   a `show-more` feature to output box and cut output at the end of the first character's output
+-   export outputs
 -   ~~thinner scrollbar~~
 
 # Building the frontend locally
