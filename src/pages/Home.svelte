@@ -1,6 +1,6 @@
 <script lang="ts">
     import { link } from "svelte-spa-router";
-    import { SERVER_ADDR } from "../assets/consts";
+    import { SERVER_ADDR } from "../common/consts";
     import OutputBox from "../components/OutputBox.svelte";
     import TextPage from "../components/TextPage.svelte";
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { SERVER_ADDR } from "../assets/consts";
+    import { SERVER_ADDR } from "../common/consts";
 
-    import plays from "../assets/play_data";
+    import plays from "../common/play_data";
 
     import TextPage from "../components/TextPage.svelte";
 </script>

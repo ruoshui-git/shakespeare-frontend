@@ -6,9 +6,9 @@
     import Button from "@smui/button";
     import IconButton from "@smui/icon-button";
     import axios, { AxiosResponse } from "axios";
-    import { SERVER_ADDR } from "../assets/consts";
-    import type { ModelOut } from "../assets/consts";
-    import * as examples from "../assets/examples";
+    import { SERVER_ADDR } from "../common/consts";
+    import type { ModelOut } from "../common/consts";
+    import * as examples from "../common/examples";
 
     export let advanced: boolean;
 
