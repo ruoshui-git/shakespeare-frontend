@@ -7,6 +7,12 @@ export const notifyPagePageview = (event: RouterEvent<RouteDetailLoaded>) => {
     });
 };
 
+export const notifyGenerate = (advanced: boolean) => {
+    gtag("event", "generate", {
+        event_label: advanced ? "advanced" : "regular",
+    });
+};
+
 const scriptId = "ga-gtag";
 // From https://github.com/idmadj/ga-gtag/blob/master/src/index.js
 export const installGtag = () => {

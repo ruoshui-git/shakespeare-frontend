@@ -9,6 +9,7 @@
     import { SERVER_ADDR } from "../common/consts";
     import type { ModelOut } from "../common/consts";
     import * as examples from "../common/examples";
+    import { notifyGenerate } from "../common/gtag";
 
     export let advanced: boolean;
 
@@ -74,6 +75,7 @@
             modelHistory.add(
                 new ModelHistory(output.data.prompt, output.data.output)
             );
+            notifyGenerate(advanced);
         } catch (err) {
             if (err.message === "Bad response") {
                 errorMsg = `❌ Server didn't send the correct response. Server is probably down right now.`;
