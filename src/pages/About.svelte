@@ -19,19 +19,19 @@
             <a
                 href={`${SERVER_ADDR}/docs`}
                 target="_blank"
-                rel="noopener noreferrer">Back end</a>
+                rel="noopener noreferrer">Backend</a>
         </li>
         <li>
             <a
                 href="https://github.com/ruoshui-git/shakespeare-backend"
                 target="_blank"
-                rel="noopener noreferrer">Back end GitHub Repo</a>
+                rel="noopener noreferrer">Backend GitHub Repo</a>
         </li>
         <li>
             <a
                 href="https://github.com/ruoshui-git/shakespeare-frontend"
                 target="_blank"
-                rel="noopener noreferrer">Front end GitHub Repo</a>
+                rel="noopener noreferrer">Frontend GitHub Repo</a>
         </li>
         <li>
             <a
@@ -44,11 +44,11 @@
     <br />
     <p>Traning neural networks isn't hard. It's not as if I'm designing one.</p>
     <p>
-        Designing a front end like this, especially styling the site, is REALLY
+        Designing a frontend like this, especially styling the site, is REALLY
         HARD.
     </p>
     <p>
-        Similarly hard is to deploy the back end server on a budget. This server
+        Similarly hard is to deploy the backend server on a budget. This server
         backend takes 2.9 GB on hard disk (in a docker image) and up to 4 GB RAM
         on startup.
     </p>
