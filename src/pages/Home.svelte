@@ -28,6 +28,7 @@
         Results are stored in localStorage, so if you don't clear them, they
         will stay even if you close your browser.
     </p>
+    <h2 class="intro">Intro</h2>
     <p>
         This is an app that uses Artificial Intelligence to generate Shakespeare
         passages. Specifically, it uses the GPT-2
@@ -87,16 +88,16 @@ As heartlings do, then.`} />
             <em>Romeo and Juliet</em>.
         </li>
         <li>
-            Sometimes what you get doesn't make sense in the context. That can
-            happen.
+            AI isn't perfect. Expect things that are grammatically correct but
+            have no meaning.
         </li>
     </ol>
     <p>There two defined "modes":</p>
     <ol>
-        <li>"ABC" aka standard: choose play and enter a prompt</li>
+        <li>"ABC" (or, Standard mode): choose play and enter a prompt</li>
         <li>
-            Advanced: you can customize many other options, and prompt is not
-            furthur
+            Advanced mode: you can customize many other options, and prompt is
+            not furthur
         </li>
     </ol>
     <h2 id="basic-mode">Framing a prompt</h2>
@@ -127,13 +128,13 @@ As heartlings do, then.`} />
     </p>
     <p>
         All outputs are saved in browser's localStorage, so they will be there
-        even if you close your browser. However, have multiple tabs of this app
-        open at the same time may cause weird concurrency issues on saving the
-        ouput. It's not tested, so it's best to avoid doing that.
+        even if you close your browser. However, having multiple tabs of this
+        app open at the same time may cause weird concurrency issues. The app
+        has not been tested in that way, so it's best to avoid doing that.
     </p>
     <p>
-        If you want to save your generated output, currently the best way to do
-        that is just copy and paste.
+        If you want to export your generated output, currently the best way is
+        copy and paste.
     </p>
     <h2 id="advanced-mode">Advanced mode</h2>
     <p>
@@ -147,14 +148,15 @@ As heartlings do, then.`} />
             target="_blank">this</a>.
     </p>
     <p>
-        Previously when this was not done and when the model was trained with
-        the tinyshakespeare text, I ran into "issues" where Horatio would be
-        speaking as a woman and characters across plays would be talking to each
-        other. Which might be what you want, depending on circumstances.
+        Previously when prefixing was not done and when the model was trained
+        with the the tinyshakespeare text, I ran into "issues" where Horatio
+        would be speaking as a woman and characters across plays would be
+        talking to each other. Which might be what you want, depending on
+        circumstances.
     </p>
     <p>
         But prefixing also gives you the flexibility to deliberately mix and
-        match plays, and give a hint of which play you want. I did not try this,
+        match plays and give a hint of which play you want. I did not try this,
         but you're free to explore!
     </p>
     <p>
@@ -174,10 +176,10 @@ As heartlings do, then.`} />
     </p>
     <h2>More AI and Shakespeare</h2>
     <p>
-        Check out this more serious poetry generation with
+        Check out a much more serious poetry generation with
         <a href="https://www.gwern.net/GPT-2" target="_blank">GPT-2</a>, and now
         with
         <a href="https://www.gwern.net/GPT-3" target="_blank">GPT-3</a>
-        (which produces work with higher quality!).
+        (which produces works with much higher quality!).
     </p>
 </TextPage>
