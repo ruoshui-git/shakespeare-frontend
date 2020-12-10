@@ -1,6 +1,8 @@
 /node_modules/
 /public/build/
 
+build/
+
 .DS_Store
 
 # Created by https://www.toptal.com/developers/gitignore/api/vscode
