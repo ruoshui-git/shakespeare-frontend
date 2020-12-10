@@ -8,6 +8,12 @@
     import Router from "svelte-spa-router";
     import type { RouteDefinition } from "svelte-spa-router";
     import Home from "./pages/Home.svelte";
+    import { installGtag, notifyPagePageview } from "./common/gtag";
+    import { onMount } from "svelte";
+
+    onMount(async () => {
+        installGtag();
+    });
 
     const routes: RouteDefinition = {
         "/about": About,
@@ -16,9 +22,6 @@
         "/": Home,
         "*": NotFound,
     };
-
-    let prompt: string;
-    let response: string;
 </script>
 
 <style>
@@ -36,5 +39,5 @@
 <Header />
 
 <div class="container">
-    <Router {routes} />
+    <Router {routes} on:routeLoaded={notifyPagePageview} />
 </div>
