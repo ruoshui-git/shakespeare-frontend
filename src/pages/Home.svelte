@@ -97,7 +97,7 @@ As heartlings do, then.`} />
         <li>"ABC" (or, Standard mode): choose play and enter a prompt</li>
         <li>
             Advanced mode: you can customize many other options, and prompt is
-            not furthur
+            not furthur processed. See later section "Advanced mode".
         </li>
     </ol>
     <h2 id="basic-mode">Framing a prompt</h2>
