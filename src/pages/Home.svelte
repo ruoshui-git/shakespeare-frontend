@@ -94,7 +94,7 @@ As heartlings do, then.`} />
     </ol>
     <p>There two defined "modes":</p>
     <ol>
-        <li>"ABC" (or, Standard mode): choose play and enter a prompt</li>
+        <li>"ABC" (or, Standard mode): choose a play and enter a prompt.</li>
         <li>
             Advanced mode: you can customize many other options, and prompt is
             not furthur processed. See later section "Advanced mode".
@@ -109,7 +109,7 @@ As heartlings do, then.`} />
         response from a character, or you might get a monologue without any
         character speaking it. You might also get stage directions.
     </p>
-    <p>When specifying a character, use this format</p>
+    <p>When specifying a character, use this format:</p>
     <pre>
 [CHARACTER IN CAPS]:
 [Words spoken by the character]
