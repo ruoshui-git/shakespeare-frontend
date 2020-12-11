@@ -2,7 +2,7 @@
 
 Generate Shakespeare with GPT-2
 
-The Home page of the app contains instructions on how to use the app.
+The [Home page](https://shakespeare-gpt2.netlify.app/) of the app contains instructions on how to use the app.
 
 Links to related places:
 
