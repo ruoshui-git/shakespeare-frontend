@@ -64,7 +64,7 @@
                 throw new Error("Bad response"); // deal with error all in one place
             }
             loadingMsg =
-                "Server is up. Generating text. This can take around 30 seconds...";
+                "Server is up. Generating text... (Takes up to 30 seconds or more.)";
 
             let output: AxiosResponse<ModelOut>;
 
