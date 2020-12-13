@@ -36,6 +36,11 @@
         min_length: 100,
     };
 
+    const preventSubmitOnEnter = (e: KeyboardEvent) => {
+        if (e.code.endsWith("Enter")) e.preventDefault();
+        return false;
+    };
+
     const fillExample = (e: Event) => {
         e.preventDefault();
         if (advanced) {
@@ -145,23 +150,32 @@
             <textarea bind:value={advProps.prompt} id="prompt-input" />
             <label>top-k:
                 <input
+                    on:keydown={preventSubmitOnEnter}
                     type="number"
                     min="0"
                     bind:value={advProps.top_k} /></label>
             <label>top-p:
                 <input
+                    on:keydown={preventSubmitOnEnter}
                     type="number"
                     step="0.01"
                     bind:value={advProps.top_p} /></label>
             <label>temperature:
                 <input
+                    on:keydown={preventSubmitOnEnter}
                     type="number"
                     step="0.01"
                     bind:value={advProps.temperature} /></label>
             <label>Maximum output length:
-                <input type="number" bind:value={advProps.max_length} /></label>
+                <input
+                    type="number"
+                    on:keydown={preventSubmitOnEnter}
+                    bind:value={advProps.max_length} /></label>
             <label>Minimum output length:
-                <input type="number" bind:value={advProps.min_length} /></label>
+                <input
+                    type="number"
+                    on:keydown={preventSubmitOnEnter}
+                    bind:value={advProps.min_length} /></label>
         </div>
     {:else}
         <label for="generate-play-select">Select a play:</label>
