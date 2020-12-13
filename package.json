@@ -9,7 +9,7 @@
         "start-dev": "sirv public",
         "validate": "svelte-check",
         "prepublish": "npm run clean && npm run build",
-        "publish": "netlify deploy --prod"
+        "publish": "netlify deploy --prod --dir=build"
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",
