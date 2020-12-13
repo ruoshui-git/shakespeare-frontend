@@ -10,12 +10,14 @@
     import type { ModelOut } from "../common/consts";
     import * as examples from "../common/examples";
     import { notifyGenerate } from "../common/gtag";
+    import timer from "../common/timer";
 
     export let advanced: boolean;
 
     let loading = false;
     let loadingMsg = "";
-    let errorMsg: string = "";
+    let errorMsg = "";
+    $: secondsTaken = $timer;
 
     let form: HTMLFormElement;
     let errorSnackbar: Snackbar;
@@ -34,7 +36,8 @@
         min_length: 100,
     };
 
-    const fillExample = () => {
+    const fillExample = (e: Event) => {
+        e.preventDefault();
         if (advanced) {
             advProps.prompt = examples.getAdv();
         } else {
@@ -46,6 +49,8 @@
         if (!form.reportValidity()) return;
         loading = true;
         loadingMsg = "Checking server status...";
+        timer.reset();
+        timer.start();
 
         // Verify server is up, before asking for inference.
         try {
@@ -53,7 +58,8 @@
             if (data.message !== "Up and and running!") {
                 throw new Error("Bad response"); // deal with error all in one place
             }
-            loadingMsg = "Server is up. Generating text...";
+            loadingMsg =
+                "Server is up. Generating text. This can take around 30 seconds...";
 
             let output: AxiosResponse<ModelOut>;
 
@@ -75,7 +81,8 @@
             modelHistory.add(
                 new ModelHistory(output.data.prompt, output.data.output)
             );
-            notifyGenerate(advanced);
+            notifyGenerate(advanced, secondsTaken);
+            loadingMsg = "Done.";
         } catch (err) {
             if (err.message === "Bad response") {
                 errorMsg = `❌ Server didn't send the correct response. Server is probably down right now.`;
@@ -90,9 +97,11 @@
                     "Browser is offline. Check your 🌐 internet connection.";
             }
             errorSnackbar.open();
+            loadingMsg = "Error";
         } finally {
-            loadingMsg = "";
+            // loadingMsg = "";
             loading = false;
+            timer.stop();
         }
     };
 </script>
@@ -182,8 +191,9 @@
 
     <LinearProgress indeterminate closed={!loading} />
 
+    <p>{loadingMsg}</p>
     {#if loading}
-        <p>{loadingMsg}</p>
+        <p>Time elapsed: {$timer} seconds</p>
     {/if}
 
     <Snackbar bind:this={errorSnackbar}>

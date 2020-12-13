@@ -7,9 +7,10 @@ export const notifyPagePageview = (event: RouterEvent<RouteDetailLoaded>) => {
     });
 };
 
-export const notifyGenerate = (advanced: boolean) => {
+export const notifyGenerate = (advanced: boolean, secondsTaken: number) => {
     gtag("event", "generate", {
         event_label: advanced ? "advanced" : "regular",
+        seconds_taken: secondsTaken,
     });
 };
 
